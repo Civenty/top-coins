@@ -14,5 +14,4 @@ export class TopCoinsService {
 			.toPromise()
 			.then(response => response.json());
 	}
-
 }
