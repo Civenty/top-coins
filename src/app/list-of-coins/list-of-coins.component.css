@@ -1,0 +1,96 @@
+.coin-names {
+	margin-bottom: 1rem;
+}
+
+.search-coin-wrapper {
+	position: relative;
+}
+
+.clear-query-btn {
+	position: absolute;
+	right: 10px;
+	bottom: 2px;
+	color: #252830;
+	font-size: 20px;
+}
+
+.list-of-coins-wrapper {
+	position: relative;
+	border: 2px solid #cfd2da;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.list-of-coins {
+	position: relative;
+	display: block;
+	padding: 10px 20px 0 0;
+	margin: 0 -20px 0 0;
+	/*min-height: 150px;*/
+	max-height: 25vh;
+	list-style: none;
+	overflow: auto;
+}
+
+.list-of-coins-loader {
+	display: block;
+	margin: 10px;
+}
+
+.list-of-coins__item {
+	display: inline-block;
+	padding: 0 10px;
+	margin: 0;
+}
+
+.coin-name__ckeckbox {
+	display: none;
+}
+
+.coin-name__label {
+	padding: 4px 10px;
+	margin: 0;
+	border: 2px solid #cfd2da;
+	border-radius: 10px;
+	box-sizing: border-box;
+	font-weight: bold;
+}
+
+.coin-name__ckeckbox + .coin-name__label:hover {	
+	border: 2px solid #a7a7a7;
+	background-color: #a7a7a7;
+	cursor: pointer;
+	color: #252830;
+}
+
+.coin-name__ckeckbox:checked + .coin-name__label {
+	background-color: #cfd2da;
+	border: 2px solid #cfd2da;
+	color: #252830;
+}
+
+.selected-coin-names {
+	padding: 10px;
+}
+
+.list-of-selected-coins-name {
+	padding: 0;
+	list-style: none;
+}
+
+.coin-name {
+	display: inline-block;
+	position: relative;
+	margin: 0 0 10px 0;
+	font-weight: bold;
+}
+
+.coins-main-info-wrapper {
+	overflow: hidden;
+}
+
+.coins-main-info {
+	overflow: auto;
+	/*padding-bottom: 20px;*/
+	/*margin-bottom: -20px;*/
+}

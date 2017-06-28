@@ -11,12 +11,20 @@ import { TopCoinsComponent } from './top-coins/top-coins.component';
 import { TopCoinsChartComponent } from './top-coins-chart/top-coins-chart.component';
 import { CoinDetailComponent } from './coin-detail/coin-detail.component';
 
+import { CoinsDataService } from './services/coins-data/coins-data.service';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+
+import { ListOfCoinsComponent } from './list-of-coins/list-of-coins.component';
+import { HomePageComponent } from './home-page/home-page.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     TopCoinsComponent,
     TopCoinsChartComponent,
-		CoinDetailComponent
+		CoinDetailComponent,
+		ListOfCoinsComponent,
+		HomePageComponent
   ],
   imports: [
 		ChartsModule,
@@ -26,7 +34,7 @@ import { CoinDetailComponent } from './coin-detail/coin-detail.component';
 		NgbModule,
 		RoutingModule
   ],
-  providers: [],
+  providers: [CoinsDataService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

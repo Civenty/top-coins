@@ -1,4 +1,47 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+	background-color: #252830;
+	color: #cfd2da;
+}
+
+.default-input:focus,
+.default-input {
+	border-radius: 10px;
+	background-color: #cfd2da;
+	color: #252830;
+	font-weight: bold;
+}
+
 .sortable {
 	cursor: pointer;
+}
+
+.default-btn {
+	display: inline-block;
+	position: relative;
+	padding: 4px 10px;
+	background-color: transparent;
+	border: 2px solid #5bc0de;
+	border-radius: 10px;	
+	color: #5bc0de;
+	cursor: pointer;
+}
+
+.default-btn:hover {
+	color: #2aabd2;
+	border-color: #2aabd2;
+}
+
+.clear-button {
+	display: inline-block;
+	position: relative;
+	border: none;
+	background-color: transparent;
+	outline: none;
+	color: #cfd2da; 	
+	cursor: pointer;
+}
+
+.default-btn:focus,
+.clear-button:focus {
+	outline: none;
 }

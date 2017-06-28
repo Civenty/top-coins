@@ -8,11 +8,11 @@ const routes: Routes = [
 	{path: "detail/:coin", component: CoinDetailComponent}
 ];
 
-
 @NgModule({
   imports: [
 		RouterModule.forRoot(routes)
   ],
 	exports: [ RouterModule ]
 })
+
 export class RoutingModule { }
