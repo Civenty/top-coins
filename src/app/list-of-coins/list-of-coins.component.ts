@@ -43,9 +43,9 @@ export class ListOfCoinsComponent implements OnInit {
 	searchCoin(query: string): void {
 		this.listOfcoins = this.originListOfcoins
 			.filter(coin => {
-				return coin.id.indexOf(query) !== -1 || 
-					coin.name.indexOf(query) !== -1 ||
-					coin.symbol.indexOf(query) !== -1 ||
+				return coin.id.toLowerCase().indexOf(query.toLocaleLowerCase()) !== -1 || 
+					coin.name.toLowerCase().indexOf(query.toLocaleLowerCase()) !== -1 ||
+					coin.symbol.toLowerCase().indexOf(query.toLocaleLowerCase()) !== -1 ||
 					!query.length;
 			});
 	}
@@ -73,7 +73,7 @@ export class ListOfCoinsComponent implements OnInit {
 
 		var end = new Date();
 
-		console.log("TIME", end.getMilliseconds() - start.getMilliseconds());
+		console.log("TIME", end.getTime() - start.getTime());
 	}
 
 	getBadgeCls(coinVal: number): string {

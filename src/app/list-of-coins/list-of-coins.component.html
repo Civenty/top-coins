@@ -1,11 +1,11 @@
 <article class="coin-names">
-	<h2>Choose coins</h2>
+	<h2>Choose coins from top 200</h2>
 
 	
 	<div class="coin-names__body">
 		<form #listOfCoins="ngForm" class="">
 			<div *ngIf="originListOfcoins.length" class="form-group search-coin-wrapper">
-				<label for="coin-prefix-field">Coin prefix:</label>
+				<!--<label for="coin-prefix-field">Coin prefix:</label>-->
 				<input #searchQuery [(ngModel)]="listOfcoinsModel['search-coin']" (ngModelChange)="searchCoin($event)" name="search-coin" class="form-control default-input" id="coin-prefix-field" type="text" placeholder="search by prefix">
 				<button *ngIf="listOfcoinsModel['search-coin']" (click)="clearQuery()" class="clear-button clear-query-btn" type="button">
 					<i class="fa fa-times-circle-o" aria-hidden="true"></i>
@@ -35,6 +35,13 @@
 	</div>
 </article>
 
+<!--<article class="coins-tags-wrapper">
+	<span>Choose by: </span>
+	<ul class="coin-tags-list">
+		<li class="coin-tag">#top50</li>
+	</ul>
+</article>-->
+
 <article *ngIf="listOfelectedfcoins.length" class="coins-main-info-wrapper">
 	<div class="coins-main-info">
 		<table class="table ">
@@ -42,9 +49,9 @@
 				<th>#</th>
 				<th>Coin</th>
 				<th>USD</th>
-				<th>1 h</th>
-				<th>24 h</th>
-				<th>7 d</th>
+				<th>1h</th>
+				<th>24h</th>
+				<th>7d</th>
 				<th></th>
 			</tr>
 			<tr *ngFor="let selectedCoin of listOfelectedfcoins">

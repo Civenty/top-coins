@@ -16,7 +16,7 @@
 
 .list-of-coins-wrapper {
 	position: relative;
-	border: 2px solid #cfd2da;
+	border: 3px solid #cfd2da;
 	border-radius: 10px;
 	overflow: hidden;
 }
@@ -50,14 +50,14 @@
 .coin-name__label {
 	padding: 4px 10px;
 	margin: 0;
-	border: 2px solid #cfd2da;
+	border: 3px solid #cfd2da;
 	border-radius: 10px;
 	box-sizing: border-box;
 	font-weight: bold;
 }
 
 .coin-name__ckeckbox + .coin-name__label:hover {	
-	border: 2px solid #a7a7a7;
+	border: 3px solid #a7a7a7;
 	background-color: #a7a7a7;
 	cursor: pointer;
 	color: #252830;
@@ -65,7 +65,7 @@
 
 .coin-name__ckeckbox:checked + .coin-name__label {
 	background-color: #cfd2da;
-	border: 2px solid #cfd2da;
+	border: 3px solid #cfd2da;
 	color: #252830;
 }
 
@@ -91,6 +91,18 @@
 
 .coins-main-info {
 	overflow: auto;
+	font-weight: bold;
 	/*padding-bottom: 20px;*/
 	/*margin-bottom: -20px;*/
+}
+
+.coins-tags-wrapper {
+	margin-bottom: 10px;
+}
+
+.coin-tags-list {
+	display: inline-block;
+	margin: 0 0 10px 0;
+	padding: 0;
+	list-style: none;
 }

@@ -16,7 +16,7 @@ export default StyleSheet.create({
   },
   'list-of-coins-wrapper': {
     'position': 'relative',
-    'border': [{ 'unit': 'px', 'value': 2 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#cfd2da' }],
+    'border': [{ 'unit': 'px', 'value': 3 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#cfd2da' }],
     'borderRadius': '10px',
     'overflow': 'hidden'
   },
@@ -45,20 +45,20 @@ export default StyleSheet.create({
   'coin-name__label': {
     'padding': [{ 'unit': 'px', 'value': 4 }, { 'unit': 'px', 'value': 10 }, { 'unit': 'px', 'value': 4 }, { 'unit': 'px', 'value': 10 }],
     'margin': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }],
-    'border': [{ 'unit': 'px', 'value': 2 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#cfd2da' }],
+    'border': [{ 'unit': 'px', 'value': 3 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#cfd2da' }],
     'borderRadius': '10px',
     'boxSizing': 'border-box',
     'fontWeight': 'bold'
   },
   'coin-name__ckeckbox + coin-name__label:hover': {
-    'border': [{ 'unit': 'px', 'value': 2 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#a7a7a7' }],
+    'border': [{ 'unit': 'px', 'value': 3 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#a7a7a7' }],
     'backgroundColor': '#a7a7a7',
     'cursor': 'pointer',
     'color': '#252830'
   },
   'coin-name__ckeckbox:checked + coin-name__label': {
     'backgroundColor': '#cfd2da',
-    'border': [{ 'unit': 'px', 'value': 2 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#cfd2da' }],
+    'border': [{ 'unit': 'px', 'value': 3 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#cfd2da' }],
     'color': '#252830'
   },
   'selected-coin-names': {
@@ -79,7 +79,17 @@ export default StyleSheet.create({
   },
   'coins-main-info': {
     'overflow': 'auto',
+    'fontWeight': 'bold',
     // padding-bottom: 20px;
     // margin-bottom: -20px;
+  },
+  'coins-tags-wrapper': {
+    'marginBottom': [{ 'unit': 'px', 'value': 10 }]
+  },
+  'coin-tags-list': {
+    'display': 'inline-block',
+    'margin': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 10 }, { 'unit': 'px', 'value': 0 }],
+    'padding': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }],
+    'listStyle': 'none'
   }
 });
