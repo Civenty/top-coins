@@ -22,10 +22,10 @@
 										class="coin-name__ckeckbox" 
 										(ngModelChange)="onModelChange($event, coin)"
 										[id]="coin.id"
-										[(ngModel)]="listOfcoinsModel[coin.id]"
-										[name]="coin.id"
+										[(ngModel)]="listOfcoinsModel[coin.rank]"
+										[name]="coin.rank"
 							>
-							<label [for]="coin.id" class="coin-name__label">{{coin.symbol}}</label>
+							<label [for]="coin.id" class="coin-name__label">{{coin.name}}</label>
 						</div>
 					</li>
 				</ul>
@@ -35,12 +35,12 @@
 	</div>
 </article>
 
-<!--<article class="coins-tags-wrapper">
-	<span>Choose by: </span>
+<article class="coins-tags-wrapper">
+	<span>Choose by filter: </span>
 	<ul class="coin-tags-list">
-		<li class="coin-tag">#top50</li>
+		<li class="coin-tag"><span (click)="filterBy('top20')">#top20</span></li>
 	</ul>
-</article>-->
+</article>
 
 <article *ngIf="listOfelectedfcoins.length" class="coins-main-info-wrapper">
 	<div class="coins-main-info">

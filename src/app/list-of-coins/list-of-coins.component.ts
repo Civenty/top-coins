@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CoinsDataService } from '../services/coins-data/coins-data.service';
-import { CookieService } from 'angular2-cookie/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -11,7 +10,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ListOfCoinsComponent implements OnInit {
   constructor(
 		private coinsDataService: CoinsDataService,
-		private cookieService: CookieService,
 		private route: ActivatedRoute,
 		private router: Router
 	) { }
@@ -28,10 +26,6 @@ export class ListOfCoinsComponent implements OnInit {
 		this.coinsDataService
 			.getCoinsList()
 			.then(response => this.coinsDataResponseHandler(response));
-
-			this.route.queryParams.subscribe((params) => {
-				console.log(params);
-			});
   }
 
 	onModelChange($event, coin): void {
@@ -41,12 +35,9 @@ export class ListOfCoinsComponent implements OnInit {
 			this.listOfelectedfcoins = this.listOfelectedfcoins.filter(selectedCoin => coin.name !== selectedCoin.name);
 		}
 
-
 		setTimeout(() => {
-			this.router.navigate([''], {queryParams: {coins: this.listOfelectedfcoins.map(coin => coin.symbol).join()}});
-			this.cookieService.put("listOfcoinsModel", JSON.stringify(this.listOfcoinsModel));			
+			this.router.navigate([''], {queryParams: {coins: this.listOfelectedfcoins.map(coin => coin.rank).join()}});
 		}, 0);
-		
 	}
 
 	searchCoin(query: string): void {
@@ -59,30 +50,42 @@ export class ListOfCoinsComponent implements OnInit {
 			});
 	}
 
-	deleteSelectedCoin(coin): void {
-		this.listOfcoinsModel[coin.id] = false;
+	deleteSelectedCoin(coin: any): void {
+		this.listOfcoinsModel[coin.rank] = false;
 
 		this.onModelChange(false, coin);
-		this.cookieService.put("listOfcoinsModel", JSON.stringify(this.listOfcoinsModel));
+	}
+
+	filterBy(filterName: string): void {
+		if (filterName === "top20") {
+			let pos = 0;
+			const limit = 10;
+
+			this.listOfcoinsModel = {};
+			this.listOfelectedfcoins = [];
+
+			for (pos; pos < limit; pos++) {
+				this.listOfcoinsModel[this.originListOfcoins[pos].rank] = true;
+				this.onModelChange(true, this.originListOfcoins[pos]);
+			}
+		}
+
 	}
 
 	coinsDataResponseHandler(response): void {
-		var start = new Date();
-
-		const savedModel = this.cookieService.get("listOfcoinsModel");
+		const queryCoins = this.route.snapshot.queryParams.coins;
+		const savedModel = queryCoins && queryCoins.split(',') || [];
 		this.listOfcoins = Array.isArray(response) && response || [];
 		this.originListOfcoins = Array.isArray(response) && response || [];
 
-		if (savedModel) {
-			this.listOfcoinsModel = JSON.parse(savedModel);
+		if (savedModel.length) {
+			savedModel.forEach(coinName => {
+				this.listOfcoinsModel[coinName] = true;
+			});
+
 			this.listOfcoinsModel['search-coin'] = "";
-
-			this.listOfelectedfcoins = this.originListOfcoins.filter(coin => this.listOfcoinsModel[coin.id]);
+			this.listOfelectedfcoins = this.originListOfcoins.filter(coin => this.listOfcoinsModel[coin.rank]);
 		}		
-
-		var end = new Date();
-
-		console.log("TIME", end.getTime() - start.getTime());
 	}
 
 	getBadgeCls(coinVal: number): string {
@@ -96,5 +99,4 @@ export class ListOfCoinsComponent implements OnInit {
 
 		this.searchCoin("");
 	}
-
 }
