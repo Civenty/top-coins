@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CoinsDataService } from '../services/coins-data/coins-data.service';
 import { CookieService } from 'angular2-cookie/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-of-coins',
@@ -10,7 +11,9 @@ import { CookieService } from 'angular2-cookie/core';
 export class ListOfCoinsComponent implements OnInit {
   constructor(
 		private coinsDataService: CoinsDataService,
-		private cookieService: CookieService
+		private cookieService: CookieService,
+		private route: ActivatedRoute,
+		private router: Router
 	) { }
 
 	private originListOfcoins: Array<any> = [];
@@ -25,6 +28,10 @@ export class ListOfCoinsComponent implements OnInit {
 		this.coinsDataService
 			.getCoinsList()
 			.then(response => this.coinsDataResponseHandler(response));
+
+			this.route.queryParams.subscribe((params) => {
+				console.log(params);
+			});
   }
 
 	onModelChange($event, coin): void {
@@ -34,7 +41,9 @@ export class ListOfCoinsComponent implements OnInit {
 			this.listOfelectedfcoins = this.listOfelectedfcoins.filter(selectedCoin => coin.name !== selectedCoin.name);
 		}
 
+
 		setTimeout(() => {
+			this.router.navigate([''], {queryParams: {coins: this.listOfelectedfcoins.map(coin => coin.symbol).join()}});
 			this.cookieService.put("listOfcoinsModel", JSON.stringify(this.listOfcoinsModel));			
 		}, 0);
 		
