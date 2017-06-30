@@ -2,13 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { CoinsDataService } from '../services/coins-data/coins-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { Compare } from '../helpers/compare';
+
 @Component({
   selector: 'app-list-of-coins',
   templateUrl: './list-of-coins.component.html',
-  styleUrls: ['./list-of-coins.component.css']
+  styleUrls: ['./list-of-coins.component.css'],
+	providers: [ Compare ]
 })
 export class ListOfCoinsComponent implements OnInit {
   constructor(
+		private compare: Compare,
 		private coinsDataService: CoinsDataService,
 		private route: ActivatedRoute,
 		private router: Router
@@ -32,6 +36,7 @@ export class ListOfCoinsComponent implements OnInit {
 	onModelChange($event, coin): void {
 		if ($event) {
 			this.listOfelectedfcoins.push(coin);
+			this.listOfelectedfcoins.sort((a, b) => this.compare.compareValues(a.rank, b.rank));
 		} else {
 			this.listOfelectedfcoins = this.listOfelectedfcoins.filter(selectedCoin => coin.name !== selectedCoin.name);
 		}
@@ -63,26 +68,29 @@ export class ListOfCoinsComponent implements OnInit {
 		this.onModelChange(false, coin);
 	}
 
+	filterByTop(top: number = 0): void {
+		let pos = 0;
+		const limit = top;
+
+		this.listOfcoinsModel = {};
+		this.listOfelectedfcoins = [];
+
+		for (pos; pos < limit; pos++) {
+			this.listOfcoinsModel[this.originListOfcoins[pos].rank] = true;
+
+			this.listOfelectedfcoins.push(this.originListOfcoins[pos]);
+			this.router.navigate([''], {queryParams: {coins: this.listOfelectedfcoins.map(coin => coin.rank).join()}});
+		}
+	}
+
 	filterBy(filterName: string): void {
 		if (filterName === "top-10-filter") {
-			let pos = 0;
-			const limit = 10;
-
-			this.listOfcoinsModel = {};
-			this.listOfelectedfcoins = [];
-
-			for (pos; pos < limit; pos++) {
-				this.listOfcoinsModel[this.originListOfcoins[pos].rank] = true;
-
-				if (true) {
-					this.listOfelectedfcoins.push(this.originListOfcoins[pos]);
-				}
-				
-				setTimeout(() => {
-					this.router.navigate([''], {queryParams: {coins: this.listOfelectedfcoins.map(coin => coin.rank).join()}});
-				}, 0);				
-			}
+			this.filterByTop(10);
 		}
+
+		if (filterName === "top-50-filter") {
+			this.filterByTop(50);
+		}		
 	}
 
 	coinsDataResponseHandler(response): void {
@@ -113,5 +121,5 @@ export class ListOfCoinsComponent implements OnInit {
 		this.listOfcoinsModel['search-coin'] = "";
 
 		this.searchCoin("");
-	}
+	};
 }

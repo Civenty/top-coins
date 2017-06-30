@@ -41,10 +41,15 @@
 		<label class="coin-tag__label" for="top-10-filter">#top10</label>
 	</span>
 
+	<span class="coin-tag">
+		<input [(ngModel)]="filterModel['coins-filter']" (ngModelChange)="onFilterChange($event)" type="radio" class="coin-tag__input" value="top-50-filter" id="top-50-filter" name="coins-filter">	
+		<label class="coin-tag__label" for="top-50-filter">#top50</label>
+	</span>
+
 	<!--<span class="coin-tag">
-		<input [(ngModel)]="filterModel['coins-filter']" (ngModelChange)="onFilterChange($event)" type="radio" class="coin-tag__input" value="top-price-filter" id="top-price-filter" name="coins-filter">	
-		<label class="coin-tag__label" for="top-price-filter">#top10price</label>
-	</span>-->
+		<input [(ngModel)]="filterModel['coins-filter']" (ngModelChange)="onFilterChange($event)" type="radio" class="coin-tag__input" value="top-25-price" id="top-25-price" name="coins-filter">	
+		<label class="coin-tag__label" for="top-25-price">#top25price</label>
+	</span>	-->
 </article>
 
 <article *ngIf="listOfelectedfcoins.length" class="coins-main-info-wrapper">
