@@ -18,6 +18,7 @@ export class ListOfCoinsComponent implements OnInit {
 	private listOfcoins: Array<any> = [];
 	private listOfelectedfcoins: Array<any> = [];
 	public loader: boolean = false;
+	public filterModel: any = {};
 	public listOfcoinsModel: any = {
 		'search-coin': ""
 	};
@@ -34,10 +35,16 @@ export class ListOfCoinsComponent implements OnInit {
 		} else {
 			this.listOfelectedfcoins = this.listOfelectedfcoins.filter(selectedCoin => coin.name !== selectedCoin.name);
 		}
+		
+		this.filterModel['coins-filter'] = '';
 
 		setTimeout(() => {
 			this.router.navigate([''], {queryParams: {coins: this.listOfelectedfcoins.map(coin => coin.rank).join()}});
 		}, 0);
+	}
+
+	onFilterChange($event): void {
+		this.filterBy($event);
 	}
 
 	searchCoin(query: string): void {
@@ -57,7 +64,7 @@ export class ListOfCoinsComponent implements OnInit {
 	}
 
 	filterBy(filterName: string): void {
-		if (filterName === "top20") {
+		if (filterName === "top-10-filter") {
 			let pos = 0;
 			const limit = 10;
 
@@ -66,10 +73,16 @@ export class ListOfCoinsComponent implements OnInit {
 
 			for (pos; pos < limit; pos++) {
 				this.listOfcoinsModel[this.originListOfcoins[pos].rank] = true;
-				this.onModelChange(true, this.originListOfcoins[pos]);
+
+				if (true) {
+					this.listOfelectedfcoins.push(this.originListOfcoins[pos]);
+				}
+				
+				setTimeout(() => {
+					this.router.navigate([''], {queryParams: {coins: this.listOfelectedfcoins.map(coin => coin.rank).join()}});
+				}, 0);				
 			}
 		}
-
 	}
 
 	coinsDataResponseHandler(response): void {
@@ -85,7 +98,11 @@ export class ListOfCoinsComponent implements OnInit {
 
 			this.listOfcoinsModel['search-coin'] = "";
 			this.listOfelectedfcoins = this.originListOfcoins.filter(coin => this.listOfcoinsModel[coin.rank]);
-		}		
+		}	else {
+			this.filterModel['coins-filter'] = 'top-10-filter';
+						
+			this.filterBy('top-10-filter');
+		}
 	}
 
 	getBadgeCls(coinVal: number): string {
@@ -93,9 +110,7 @@ export class ListOfCoinsComponent implements OnInit {
 	}
 
 	clearQuery(): void {
-		if (this.listOfcoinsModel['search-coin']) {
-			this.listOfcoinsModel['search-coin'] = "";
-		}
+		this.listOfcoinsModel['search-coin'] = "";
 
 		this.searchCoin("");
 	}

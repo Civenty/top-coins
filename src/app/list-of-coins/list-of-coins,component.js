@@ -91,5 +91,29 @@ export default StyleSheet.create({
     'margin': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 10 }, { 'unit': 'px', 'value': 0 }],
     'padding': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }],
     'listStyle': 'none'
+  },
+  'coin-tag': {
+    'display': 'inline-block',
+    'margin': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 4 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }]
+  },
+  'coin-tag__input': {
+    'display': 'none'
+  },
+  'coin-tag__label': {
+    'display': 'inline-block',
+    'padding': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 4 }, { 'unit': 'px', 'value': 2 }, { 'unit': 'px', 'value': 4 }],
+    'margin': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 4 }, { 'unit': 'px', 'value': 0 }],
+    'border': [{ 'unit': 'px', 'value': 3 }, { 'unit': 'string', 'value': 'solid' }, { 'unit': 'string', 'value': '#46b8da' }],
+    'backgroundColor': '#252830',
+    'borderRadius': '10px',
+    'color': '#46b8da',
+    'fontWeight': 'bold',
+    'lineHeight': [{ 'unit': 'px', 'value': 1 }],
+    'verticalAlign': 'middle',
+    'cursor': 'pointer'
+  },
+  'coin-tag__input:checked + coin-tag__label': {
+    'backgroundColor': '#46b8da',
+    'color': '#252830'
   }
 });

@@ -1,12 +1,12 @@
 <article class="coin-names">
-	<h2>Choose coins from top 200</h2>
+	<h2>Top 200 coins</h2>
 
 	
 	<div class="coin-names__body">
 		<form #listOfCoins="ngForm" class="">
 			<div *ngIf="originListOfcoins.length" class="form-group search-coin-wrapper">
 				<!--<label for="coin-prefix-field">Coin prefix:</label>-->
-				<input #searchQuery [(ngModel)]="listOfcoinsModel['search-coin']" (ngModelChange)="searchCoin($event)" name="search-coin" class="form-control default-input" id="coin-prefix-field" type="text" placeholder="search by prefix">
+				<input #searchQuery [(ngModel)]="listOfcoinsModel['search-coin']" (ngModelChange)="searchCoin($event)" name="search-coin" class="form-control default-input" id="coin-prefix-field" type="text" placeholder="search">
 				<button *ngIf="listOfcoinsModel['search-coin']" (click)="clearQuery()" class="clear-button clear-query-btn" type="button">
 					<i class="fa fa-times-circle-o" aria-hidden="true"></i>
 				</button>				
@@ -35,11 +35,16 @@
 	</div>
 </article>
 
-<article class="coins-tags-wrapper">
-	<span>Choose by filter: </span>
-	<ul class="coin-tags-list">
-		<li class="coin-tag"><span (click)="filterBy('top20')">#top20</span></li>
-	</ul>
+<article class="coins-tags-wrapper" *ngIf="originListOfcoins.length">
+	<span class="coin-tag">
+		<input [(ngModel)]="filterModel['coins-filter']" (ngModelChange)="onFilterChange($event)" type="radio" class="coin-tag__input" value="top-10-filter" id="top-10-filter" name="coins-filter">	
+		<label class="coin-tag__label" for="top-10-filter">#top10</label>
+	</span>
+
+	<!--<span class="coin-tag">
+		<input [(ngModel)]="filterModel['coins-filter']" (ngModelChange)="onFilterChange($event)" type="radio" class="coin-tag__input" value="top-price-filter" id="top-price-filter" name="coins-filter">	
+		<label class="coin-tag__label" for="top-price-filter">#top10price</label>
+	</span>-->
 </article>
 
 <article *ngIf="listOfelectedfcoins.length" class="coins-main-info-wrapper">

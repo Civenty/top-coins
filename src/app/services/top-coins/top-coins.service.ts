@@ -4,7 +4,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class TopCoinsService {
-	private dataUrl = 'https://api.coinmarketcap.com/v1/ticker/?convert=USD&limit=50';
+	private dataUrl = 'https://api.coinmarketcap.com/v1/ticker/?convert=USD&limit=200';
 
   constructor(private http: Http) { }
 
