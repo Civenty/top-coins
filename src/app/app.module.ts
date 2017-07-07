@@ -7,24 +7,20 @@ import { ChartsModule } from 'ng2-charts';
 import { RoutingModule } from './routing/routing.module';
 
 import { AppComponent } from './app.component';
-import { TopCoinsComponent } from './top-coins/top-coins.component';
-import { TopCoinsChartComponent } from './top-coins-chart/top-coins-chart.component';
-import { CoinDetailComponent } from './coin-detail/coin-detail.component';
 
 import { CoinsDataService } from './services/coins-data/coins-data.service';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 import { ListOfCoinsComponent } from './list-of-coins/list-of-coins.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { FavouriteCoinsComponent } from './favourite-coins/favourite-coins.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TopCoinsComponent,
-    TopCoinsChartComponent,
-		CoinDetailComponent,
 		ListOfCoinsComponent,
-		HomePageComponent
+		HomePageComponent,
+		FavouriteCoinsComponent
   ],
   imports: [
 		ChartsModule,

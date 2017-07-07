@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { CoinsDataService } from '../services/coins-data/coins-data.service';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { CoinsDataService } from '../services/coins-data/coins-data.service';
+import { SelectedCoinsService } from '../services/selected-coins/selected-coins.service';
 
 import { Compare } from '../helpers/compare';
 
@@ -11,12 +13,22 @@ import { Compare } from '../helpers/compare';
 	providers: [ Compare ]
 })
 export class ListOfCoinsComponent implements OnInit {
+
   constructor(
 		private compare: Compare,
-		private coinsDataService: CoinsDataService,
 		private route: ActivatedRoute,
-		private router: Router
-	) { }
+		private router: Router,
+		private coinsDataService: CoinsDataService,
+		private selectedCoinsService: SelectedCoinsService
+	) {
+		selectedCoinsService.selectedCoins$.subscribe(data => {
+			this.router.navigate([''], {queryParams: {coins: data.map(coin => coin.rank).join()}});
+		});
+
+		selectedCoinsService.coinInfo$.subscribe(coin => {
+			this.listOfcoinsModel[coin.rank] = false;
+		});		
+	}
 
 	private originListOfcoins: Array<any> = [];
 	private listOfcoins: Array<any> = [];
@@ -34,18 +46,9 @@ export class ListOfCoinsComponent implements OnInit {
   }
 
 	onModelChange($event, coin): void {
-		if ($event) {
-			this.listOfelectedfcoins.push(coin);
-			this.listOfelectedfcoins.sort((a, b) => this.compare.compareValues(a.rank, b.rank));
-		} else {
-			this.listOfelectedfcoins = this.listOfelectedfcoins.filter(selectedCoin => coin.name !== selectedCoin.name);
-		}
-		
 		this.filterModel['coins-filter'] = '';
-
-		setTimeout(() => {
-			this.router.navigate([''], {queryParams: {coins: this.listOfelectedfcoins.map(coin => coin.rank).join()}});
-		}, 0);
+		
+		this.selectedCoinsService.toggleCoin(coin, $event);
 	}
 
 	onFilterChange($event): void {
@@ -64,22 +67,21 @@ export class ListOfCoinsComponent implements OnInit {
 
 	deleteSelectedCoin(coin: any): void {
 		this.listOfcoinsModel[coin.rank] = false;
-
-		this.onModelChange(false, coin);
 	}
 
 	filterByTop(top: number = 0): void {
 		let pos = 0;
+		let listOfelectedfcoins = [];
 		const limit = top;
 
 		this.listOfcoinsModel = {};
-		this.listOfelectedfcoins = [];
 
 		for (pos; pos < limit; pos++) {
 			this.listOfcoinsModel[this.originListOfcoins[pos].rank] = true;
 
-			this.listOfelectedfcoins.push(this.originListOfcoins[pos]);
+			listOfelectedfcoins.push(this.originListOfcoins[pos]);
 			this.router.navigate([''], {queryParams: {coins: this.listOfelectedfcoins.map(coin => coin.rank).join()}});
+			this.selectedCoinsService.setCoins(listOfelectedfcoins);
 		}
 	}
 
@@ -93,9 +95,11 @@ export class ListOfCoinsComponent implements OnInit {
 		}		
 	}
 
+	
 	coinsDataResponseHandler(response): void {
 		const queryCoins = this.route.snapshot.queryParams.coins;
 		const savedModel = queryCoins && queryCoins.split(',') || [];
+
 		this.listOfcoins = Array.isArray(response) && response || [];
 		this.originListOfcoins = Array.isArray(response) && response || [];
 
@@ -105,16 +109,13 @@ export class ListOfCoinsComponent implements OnInit {
 			});
 
 			this.listOfcoinsModel['search-coin'] = "";
-			this.listOfelectedfcoins = this.originListOfcoins.filter(coin => this.listOfcoinsModel[coin.rank]);
+			this.selectedCoinsService
+				.setCoins(this.originListOfcoins.filter(coin => this.listOfcoinsModel[coin.rank]));
 		}	else {
-			this.filterModel['coins-filter'] = 'top-10-filter';
+			// this.filterModel['coins-filter'] = 'top-10-filter';
 						
-			this.filterBy('top-10-filter');
+			// this.filterBy('top-10-filter');
 		}
-	}
-
-	getBadgeCls(coinVal: number): string {
-		return `badge ${coinVal > 0 ? 'badge-success' : 'badge-danger'}`;
 	}
 
 	clearQuery(): void {

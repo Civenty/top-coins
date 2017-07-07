@@ -1,11 +1,9 @@
 <article class="coin-names">
 	<h2>Top 200 coins</h2>
-
 	
 	<div class="coin-names__body">
 		<form #listOfCoins="ngForm" class="">
 			<div *ngIf="originListOfcoins.length" class="form-group search-coin-wrapper">
-				<!--<label for="coin-prefix-field">Coin prefix:</label>-->
 				<input #searchQuery [(ngModel)]="listOfcoinsModel['search-coin']" (ngModelChange)="searchCoin($event)" name="search-coin" class="form-control default-input" id="coin-prefix-field" type="text" placeholder="search">
 				<button *ngIf="listOfcoinsModel['search-coin']" (click)="clearQuery()" class="clear-button clear-query-btn" type="button">
 					<i class="fa fa-times-circle-o" aria-hidden="true"></i>
@@ -45,51 +43,9 @@
 		<input [(ngModel)]="filterModel['coins-filter']" (ngModelChange)="onFilterChange($event)" type="radio" class="coin-tag__input" value="top-50-filter" id="top-50-filter" name="coins-filter">	
 		<label class="coin-tag__label" for="top-50-filter">#top50</label>
 	</span>
-
-	<!--<span class="coin-tag">
-		<input [(ngModel)]="filterModel['coins-filter']" (ngModelChange)="onFilterChange($event)" type="radio" class="coin-tag__input" value="top-25-price" id="top-25-price" name="coins-filter">	
-		<label class="coin-tag__label" for="top-25-price">#top25price</label>
-	</span>	-->
 </article>
 
-<article *ngIf="listOfelectedfcoins.length" class="coins-main-info-wrapper">
-	<div class="coins-main-info">
-		<table class="table ">
-			<tr>
-				<th>#</th>
-				<th>Coin</th>
-				<th>USD</th>
-				<th>1h</th>
-				<th>24h</th>
-				<th>7d</th>
-				<th></th>
-			</tr>
-			<tr *ngFor="let selectedCoin of listOfelectedfcoins">
-				<td>{{ selectedCoin.rank }}</td>
-				<td>{{ selectedCoin.symbol }}</td>
-				<td>{{ selectedCoin.price_usd }}</td>
-				<td>
-					<span [ngClass]="getBadgeCls(selectedCoin.percent_change_1h)">
-						{{ selectedCoin.percent_change_1h }}
-					</span>					
-				</td>
-				<td>
-					<span [ngClass]="getBadgeCls(selectedCoin.percent_change_24h)">
-						{{ selectedCoin.percent_change_24h }}
-					</span>										
-				</td>
-				<td>
-					<span [ngClass]="getBadgeCls(selectedCoin.percent_change_7d)">
-						{{ selectedCoin.percent_change_7d }}
-					</span>															
-				</td>
-				<td>
-					<button (click)="deleteSelectedCoin(selectedCoin)" class="clear-button" type="button">
-						<i class="fa fa-trash-o" aria-hidden="true"></i>
-					</button>
-				</td>
-			</tr>
-		</table>
-	</div>
-</article>
+
+
+
 

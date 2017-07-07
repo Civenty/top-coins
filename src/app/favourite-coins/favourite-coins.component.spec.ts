@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TopCoinsChartComponent } from './top-coins-chart.component';
+import { FavouriteCoinsComponent } from './favourite-coins.component';
 
-describe('TopCoinsChartComponent', () => {
-  let component: TopCoinsChartComponent;
-  let fixture: ComponentFixture<TopCoinsChartComponent>;
+describe('FavouriteCoinsComponent', () => {
+  let component: FavouriteCoinsComponent;
+  let fixture: ComponentFixture<FavouriteCoinsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TopCoinsChartComponent ]
+      declarations: [ FavouriteCoinsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TopCoinsChartComponent);
+    fixture = TestBed.createComponent(FavouriteCoinsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,7 +1,14 @@
 <div class="container">
 	<div class="row justify-content-md-center">
 		<div class="col-12 col-md-9">
+
 			<app-list-of-coins></app-list-of-coins>
+	
+			<app-favourite-coins
+				[listOfelectedfcoins]="listOfelectedfcoins"
+				(deleteSelectedCoin)="deleteSelectedCoin($event)"
+			></app-favourite-coins>
+
 		</div>
 	</div>
 </div>
