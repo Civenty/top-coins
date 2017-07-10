@@ -1,9 +1,7 @@
 <article class="coin-names">
-	<h2>Top 200 coins</h2>
-	
 	<div class="coin-names__body">
 		<form #listOfCoins="ngForm" class="">
-			<div *ngIf="originListOfcoins.length" class="form-group search-coin-wrapper">
+			<div *ngIf="listOfcoins.length" class="form-group search-coin-wrapper">
 				<input #searchQuery [(ngModel)]="listOfcoinsModel['search-coin']" (ngModelChange)="searchCoin($event)" name="search-coin" class="form-control default-input" id="coin-prefix-field" type="text" placeholder="search">
 				<button *ngIf="listOfcoinsModel['search-coin']" (click)="clearQuery()" class="clear-button clear-query-btn" type="button">
 					<i class="fa fa-times-circle-o" aria-hidden="true"></i>
@@ -11,9 +9,9 @@
 			</div>
 
 			<div class="list-of-coins-wrapper">
-				<strong class="list-of-coins-loader" *ngIf="!originListOfcoins.length">Loading...</strong>
+				<strong class="list-of-coins-loader" *ngIf="!listOfcoins.length">Loading...</strong>
 
-				<ul *ngIf="originListOfcoins.length" class="list-of-coins">
+				<ul *ngIf="listOfcoins.length" class="list-of-coins">
 					<li *ngFor="let coin of listOfcoins; let i=index" class="list-of-coins__item">
 						<div class="coin-name">
 							<input type="checkbox"
@@ -33,7 +31,7 @@
 	</div>
 </article>
 
-<article class="coins-tags-wrapper" *ngIf="originListOfcoins.length">
+<article class="coins-tags-wrapper" *ngIf="listOfcoins.length">
 	<span class="coin-tag">
 		<input [(ngModel)]="filterModel['coins-filter']" (ngModelChange)="onFilterChange($event)" type="radio" class="coin-tag__input" value="top-10-filter" id="top-10-filter" name="coins-filter">	
 		<label class="coin-tag__label" for="top-10-filter">#top10</label>

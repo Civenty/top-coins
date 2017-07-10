@@ -1,13 +1,23 @@
 <div class="container">
 	<div class="row justify-content-md-center">
 		<div class="col-12 col-md-9">
+			<section>
+				<h1>Top 200 coins</h1>
+				
+				<app-list-of-coins
+					[listOfcoins]="originListOfcoins"
+					[selectedCoins]="listOfelectedfcoins"
+					(toggleCoin)="toggleCoin($event)"
+				></app-list-of-coins>
+			</section>
 
-			<app-list-of-coins></app-list-of-coins>
+			<section>
+				<app-favourite-coins
+					[listOfelectedfcoins]="listOfelectedfcoins"
+					(deleteSelectedCoin)="deleteSelectedCoin($event)"
+				></app-favourite-coins>
+			</section>
 	
-			<app-favourite-coins
-				[listOfelectedfcoins]="listOfelectedfcoins"
-				(deleteSelectedCoin)="deleteSelectedCoin($event)"
-			></app-favourite-coins>
 
 		</div>
 	</div>
