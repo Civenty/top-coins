@@ -12,7 +12,7 @@
 			</tr>
 			<tr *ngFor="let selectedCoin of listOfelectedfcoins">
 				<td>{{ selectedCoin.rank }}</td>
-				<td>{{ selectedCoin.symbol }}</td>
+				<td> <a [routerLink]="['/detail', selectedCoin.symbol]">{{ selectedCoin.symbol }}</a> </td>
 				<td>{{ selectedCoin.price_usd }}</td>
 				<td>
 					<span [ngClass]="getBadgeCls(selectedCoin.percent_change_1h)">

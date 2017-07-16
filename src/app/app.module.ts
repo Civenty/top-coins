@@ -14,13 +14,15 @@ import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { ListOfCoinsComponent } from './list-of-coins/list-of-coins.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { FavouriteCoinsComponent } from './favourite-coins/favourite-coins.component';
+import { CoinDetailComponent } from './coin-detail/coin-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
 		ListOfCoinsComponent,
 		HomePageComponent,
-		FavouriteCoinsComponent
+		FavouriteCoinsComponent,
+		CoinDetailComponent
   ],
   imports: [
 		ChartsModule,
