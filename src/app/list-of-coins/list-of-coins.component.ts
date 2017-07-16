@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
 import { Compare } from '../helpers/compare';
+import { Coin } from '../coin';
 
 @Component({
   selector: 'app-list-of-coins',
@@ -8,11 +9,12 @@ import { Compare } from '../helpers/compare';
 	providers: [ Compare ]
 })
 export class ListOfCoinsComponent implements OnInit {
-	@Input() listOfcoins: Array<any> = [];
-	@Input() selectedCoins: Array<any> = [];
-
+	@Input() listOfcoins: Array<Coin> = [];
+	@Input() selectedCoins: Array<Coin> = [];
 	@Output() toggleCoin: EventEmitter<any> = new EventEmitter();
+	@Output() updateSelectedCoins: EventEmitter<any> = new EventEmitter();
 
+	originListOfcoins = [];
 	public loader: boolean = false;
 	public filterModel: any = {};
 	public listOfcoinsModel: any = {
@@ -26,82 +28,68 @@ export class ListOfCoinsComponent implements OnInit {
   ngOnInit() {
   }
 
-	ngOnChanges(changes: SimpleChanges) {
-		console.log(changes);
+	ngOnChanges(changes: SimpleChanges) {	
+		if (changes.listOfcoins) {
+			this.originListOfcoins = changes.listOfcoins.currentValue.slice(0);
+		}
+
+		if (changes.selectedCoins) {
+			this.listOfcoinsModel = {
+				'search-coin': this.listOfcoinsModel['search-coin']
+			};
+			
+			changes.selectedCoins.currentValue.forEach(coin => {
+				this.listOfcoinsModel[coin.rank] = true;
+			});
+		}
 	}
 
-	onModelChange($event, coin): void {
-		this.filterModel['coins-filter'] = '';
+	onModelChange($event, coin: Coin): void {
+		this.filterModel = {};
 
 		this.toggleCoin.emit({state: $event, coin: coin});
 	}
 
 	onFilterChange($event): void {
-		// this.filterBy($event);
+		this.filterBy($event);
 	}
 
 	searchCoin(query: string): void {
-		// this.listOfcoins = this.originListOfcoins
-		// 	.filter(coin => {
-		// 		return coin.id.toLowerCase().indexOf(query.toLocaleLowerCase()) !== -1 || 
-		// 			coin.name.toLowerCase().indexOf(query.toLocaleLowerCase()) !== -1 ||
-		// 			coin.symbol.toLowerCase().indexOf(query.toLocaleLowerCase()) !== -1 ||
-		// 			!query.length;
-		// 	});
+		this.listOfcoins = this.originListOfcoins
+			.filter(coin => {
+				return coin.id.toLowerCase().indexOf(query.toLocaleLowerCase()) !== -1 || 
+					coin.name.toLowerCase().indexOf(query.toLocaleLowerCase()) !== -1 ||
+					coin.symbol.toLowerCase().indexOf(query.toLocaleLowerCase()) !== -1 ||
+					!query.length;
+			});
 	}
 
-	// filterByTop(top: number = 0): void {
-	// 	let pos = 0;
-	// 	let listOfelectedfcoins = [];
-	// 	const limit = top;
+	filterByTop(top: number = 0): void {
+		let pos = 0;
+		let listOfelectedfcoins = [];
+		const limit = top;
 
-	// 	this.listOfcoinsModel = {};
+		this.listOfcoinsModel = {};
 
-	// 	for (pos; pos < limit; pos++) {
-	// 		this.listOfcoinsModel[this.originListOfcoins[pos].rank] = true;
+		this.updateSelectedCoins.emit([]);
 
-	// 		listOfelectedfcoins.push(this.originListOfcoins[pos]);
-	// 		this.router.navigate([''], {queryParams: {coins: this.selectedCoinsService.getCoins().map(coin => coin.rank).join()}});
-	// 		this.selectedCoinsService.setCoins(listOfelectedfcoins);
-	// 	}
-	// }
+		for (pos; pos < limit; pos++) {
+			this.listOfcoinsModel[this.originListOfcoins[pos].rank] = true;
 
-	// filterBy(filterName: string): void {
-	// 	if (filterName === "top-10-filter") {
-	// 		this.filterByTop(10);
-	// 	}
+			this.toggleCoin.emit({state: true, coin: this.originListOfcoins[pos]});
+		}
+	}
 
-	// 	if (filterName === "top-50-filter") {
-	// 		this.filterByTop(50);
-	// 	}		
-	// }
+	filterBy(filterName: string): void {
+		if (filterName === "top-10-filter") {
+			this.filterByTop(10);
+		}
+
+		if (filterName === "top-50-filter") {
+			this.filterByTop(50);
+		}		
+	}
 	
-	// coinsDataResponseHandler(response): void {
-	// 	const queryCoins = this.route.snapshot.queryParams.coins;
-	// 	const savedModel = queryCoins && queryCoins.split(',') || [];
-
-	// 	this.listOfcoins = Array.isArray(response) && response || [];
-	// 	this.originListOfcoins = Array.isArray(response) && response || [];
-
-	// 	this.selectedCoinsService.selectedCoins$.subscribe(data => {
-	// 		this.router.navigate([''], {queryParams: {coins: data.map(coin => coin.rank).join()}});
-	// 	});		
-
-	// 	if (savedModel.length) {
-	// 		savedModel.forEach(coinName => {
-	// 			this.listOfcoinsModel[coinName] = true;
-	// 		});
-
-	// 		this.listOfcoinsModel['search-coin'] = "";
-	// 		this.selectedCoinsService
-	// 			.setCoins(this.originListOfcoins.filter(coin => this.listOfcoinsModel[coin.rank]));
-	// 	}	else {
-	// 		// this.filterModel['coins-filter'] = 'top-10-filter';
-						
-	// 		// this.filterBy('top-10-filter');
-	// 	}
-	// }
-
 	clearQuery(): void {
 		this.listOfcoinsModel['search-coin'] = "";
 

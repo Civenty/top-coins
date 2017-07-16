@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListOfCoinsComponent } from '../list-of-coins/list-of-coins.component';
+import { Coin } from '../coin';
 
 import { CoinsDataService } from '../services/coins-data/coins-data.service';
 import { SelectedCoinsService } from '../services/selected-coins/selected-coins.service';
@@ -12,9 +13,9 @@ import { SelectedCoinsService } from '../services/selected-coins/selected-coins.
   providers: [SelectedCoinsService]
 })
 export class HomePageComponent implements OnInit {
-  private listOfelectedfcoins = [];
-	private originListOfcoins: Array<any> = [];
-	private listOfcoins: Array<any> = [];
+  listOfelectedfcoins = [];
+	originListOfcoins: Array<Coin> = [];
+	listOfcoins: Array<Coin> = [];
 
   constructor(
 		private route: ActivatedRoute,
@@ -33,7 +34,7 @@ export class HomePageComponent implements OnInit {
 			.then(response => this.coinsDataResponseHandler(response));		
   }
 
-	coinsDataResponseHandler(response): void {
+	coinsDataResponseHandler(response: Array<Coin> = []): void {
 		const queryCoins = this.route.snapshot.queryParams.coins;
 		const savedModel = queryCoins && queryCoins.split(',') || [];
 
@@ -41,25 +42,26 @@ export class HomePageComponent implements OnInit {
 		this.originListOfcoins = Array.isArray(response) && response || [];
 
 		this.selectedCoinsService.selectedCoins$.subscribe(data => {
-			this.router.navigate([''], {queryParams: {coins: data.map(coin => coin.rank).join()}});
+			this.router.navigate([''], {
+				queryParams: {
+					coins: data.map(coin => coin.rank).join()
+				}
+			});
 		});		
 
-		if (savedModel.length) {
-			// this.selectedCoinsService
-			// 	.setCoins(this.originListOfcoins.filter(coin => this.listOfcoinsModel[coin.rank]));
-		}	else {
-			// this.filterModel['coins-filter'] = 'top-10-filter';
-						
-			// this.filterBy('top-10-filter');
-		}
+		this.selectedCoinsService
+			.setCoins(this.originListOfcoins.filter(coin => savedModel.indexOf(coin.rank) !== -1));
 	}
 
 	toggleCoin($event) {
 		this.selectedCoinsService.toggleCoin($event.coin, $event.state);
 	}
 
+	updateSelectedCoins($event) {
+		this.selectedCoinsService.setCoins([]);
+	}
+
   deleteSelectedCoin($event) {
     this.selectedCoinsService.removeCoin($event);
-    this.selectedCoinsService.emitCoinInfo($event);
   }
 }

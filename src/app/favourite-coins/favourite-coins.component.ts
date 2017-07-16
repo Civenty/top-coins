@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Coin } from '../coin';
 
 @Component({
   selector: 'app-favourite-coins',
@@ -14,7 +15,7 @@ export class FavouriteCoinsComponent implements OnInit {
   ngOnInit() {
   }
 
-  deleteSelected(coin: any) {
+  deleteSelected(coin: Coin) {
     this.deleteSelectedCoin.emit(coin);
   }
 

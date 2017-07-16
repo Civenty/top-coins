@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Coin } from '../../coin';
 
 @Injectable()
 export class SelectedCoinsService {
@@ -9,7 +10,7 @@ export class SelectedCoinsService {
   selectedCoins$ = this.selectesCoinsSource.asObservable();
   coinInfo$ = this.coinInfoSource.asObservable();
 
-  public setCoins(coins: any) {
+  public setCoins(coins: Array<Coin>) {
     this.selectesCoinsSource.next(coins);
   }
 
@@ -17,7 +18,7 @@ export class SelectedCoinsService {
     return this.selectesCoinsSource.getValue();
   }
 
-  public addCoin(coin: any) {
+  public addCoin(coin: Coin) {
     let coins = this.getCoins();
 
     coins.push(coin);
@@ -25,22 +26,16 @@ export class SelectedCoinsService {
     // listOfelectedfcoins.sort((a, b) => this.compare.compareValues(a.rank, b.rank));
   }
 
-  public removeCoin(coin: any) {
+  public removeCoin(coin: Coin) {
     this.selectesCoinsSource
       .next(this.getCoins().filter(selectedCoin => coin.name !== selectedCoin.name));
   }
 
-  public toggleCoin(coin: any, state: boolean) {
+  public toggleCoin(coin: Coin, state: boolean) {
     if (state) {
       this.addCoin(coin);
     } else {
       this.removeCoin(coin);
     }    
-  }
-
-
-  // TODO temporary
-  public emitCoinInfo(coin: any) {
-    this.coinInfoSource.next(coin);
   }
 }
