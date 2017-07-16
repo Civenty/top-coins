@@ -74,15 +74,6 @@ export default StyleSheet.create({
     'margin': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 10 }, { 'unit': 'px', 'value': 0 }],
     'fontWeight': 'bold'
   },
-  'coins-main-info-wrapper': {
-    'overflow': 'hidden'
-  },
-  'coins-main-info': {
-    'overflow': 'auto',
-    'fontWeight': 'bold',
-    // padding-bottom: 20px;
-    // margin-bottom: -20px;
-  },
   'coins-tags-wrapper': {
     'marginBottom': [{ 'unit': 'px', 'value': 10 }]
   },

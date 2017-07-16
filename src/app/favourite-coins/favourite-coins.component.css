@@ -1,0 +1,11 @@
+.coins-main-info-wrapper {
+	overflow: hidden;
+}
+
+.coins-main-info {
+	overflow: auto;
+	font-weight: bold;
+	/*padding-bottom: 20px;*/
+	/*margin-bottom: -20px;*/
+}
+
