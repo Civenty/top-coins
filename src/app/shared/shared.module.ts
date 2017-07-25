@@ -4,7 +4,6 @@ import { ChartsModule } from 'ng2-charts';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-// import { RoutingModule } from '../routing/routing.module';
 import { FormsModule } from '@angular/forms';
 
 import { CookieService } from 'angular2-cookie/services/cookies.service';

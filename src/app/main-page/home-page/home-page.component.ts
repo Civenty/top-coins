@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ListOfCoinsComponent } from '../list-of-coins/list-of-coins.component';
 import { Coin } from '../coin';
 
 import { CoinsDataService } from '../../services/coins-data/coins-data.service';
