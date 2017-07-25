@@ -1,18 +1,16 @@
-<!-- <p>
-  coin-detail works!
-</p> -->
-
 <div class="container">
 	<div class="row justify-content-md-center">
 		<div class="col-12 col-md-9">
 			<section>
+				<h1 *ngIf="lineChartLabels.length">{{coinProps.long}}</h1>
+				
 				<div *ngIf="hasData">
 					<button type="button" (click)="goBack()">BACK</button>
 					<h1>NO DATA</h1>
 				</div>
 				
 				<div *ngIf="lineChartLabels.length">
-					<canvas baseChart width="400" height="100"
+					<canvas baseChart width="4" height="2"
 						[datasets]="lineChartData"
 						[labels]="lineChartLabels"
 						[options]="lineChartOptions"
@@ -22,7 +20,7 @@
 
 			<section>
 				<table class="table" *ngIf="lineChartLabels.length">
-					<tr> <td>Name</td> <td>{{coinProps.long}}</td></tr>
+					<!-- <tr> <td>Name</td> <td>{{coinProps.long}}</td></tr> -->
 					<tr> <td>Position</td> <td>{{coinProps.position24}}</td></tr>
 					<tr> <td>Price USD</td> <td>{{coinProps.usdPrice}}</td></tr>
 					<tr> <td>vwapDataBTC</td> <td>{{coinProps.vwapDataBTC}}</td></tr>				

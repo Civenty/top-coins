@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RoutingModule } from './main-page-routing/main-page-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { RoutingModule } from './main-page-routing/main-page-routing.module';
 
 import { HomePageComponent } from './home-page/home-page.component';
 import { ListOfCoinsComponent } from './list-of-coins/list-of-coins.component';

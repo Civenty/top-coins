@@ -56,10 +56,14 @@ export class CoinDetailComponent implements OnInit {
 	}
 
 	setPriceData(priceData: Array<any>) {
+		let d = null;
+
 		priceData.forEach((price, pos) => {
-			if (pos % 50 == 0) {
+			d = new Date(price[0]);
+
+			if (pos % 20 == 0) {
 				this.lineChartData[0].data.push(price[1]);
-				this.lineChartLabels.push(price[0]);
+				this.lineChartLabels.push(d);
 			}
 		});
 	}

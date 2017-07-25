@@ -9,7 +9,6 @@ import { FormsModule } from '@angular/forms';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { CoinsDataService } from '../services/coins-data/coins-data.service';
 
-
 @NgModule({
   imports: [
     CommonModule
