@@ -2,16 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CoinDetailComponent } from '../coin-detail/coin-detail.component'
+import { HomePageComponent } from './home-page/home-page.component';
 
 const routes: Routes = [
 	{
-		path: 'detail/:coin-name',
-		component: CoinDetailComponent
-	},
-	{
 		path: '',
-		loadChildren: '../main-page/main-page.module#MainPageModule'
+		component: HomePageComponent
 	},
 	{
 		path: '**',
@@ -21,7 +17,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-		RouterModule.forRoot(routes)
+		RouterModule.forChild(routes)
   ],
 	exports: [ RouterModule ]
 })

@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ChartsModule } from 'ng2-charts';
+import { SharedModule } from './shared/shared.module';
 
 import { RoutingModule } from './routing/routing.module';
 
-import { MainPageModule } from './main-page/main-page.module';
+// import { MainPageModule } from './main-page/main-page.module';
 
 import { AppComponent } from './app.component';
 import { CoinDetailComponent } from './coin-detail/coin-detail.component';
@@ -17,8 +17,8 @@ import { CoinDetailComponent } from './coin-detail/coin-detail.component';
   imports: [
 		BrowserModule,
 		RoutingModule,
-		MainPageModule,
-		ChartsModule
+		// MainPageModule,
+		SharedModule
   ],
   bootstrap: [ AppComponent ]
 })
