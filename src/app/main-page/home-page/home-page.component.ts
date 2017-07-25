@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ListOfCoinsComponent } from '../list-of-coins/list-of-coins.component';
 import { Coin } from '../coin';
 
-import { CoinsDataService } from '../services/coins-data/coins-data.service';
-import { SelectedCoinsService } from '../services/selected-coins/selected-coins.service';
+import { CoinsDataService } from '../../services/coins-data/coins-data.service';
+import { SelectedCoinsService } from '../../services/selected-coins/selected-coins.service';
 
 @Component({
   selector: 'app-home-page',

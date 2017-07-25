@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Coin } from '../../coin';
+import { Coin } from '../../main-page//coin';
 
 @Injectable()
 export class SelectedCoinsService {

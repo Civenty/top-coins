@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
-import { Compare } from '../helpers/compare';
+import { Compare } from '../../helpers/compare';
 import { Coin } from '../coin';
 
 @Component({
