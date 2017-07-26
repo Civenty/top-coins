@@ -1,0 +1,19 @@
+<section class="tab-switcher">
+  <div class="tab-switcher-list">
+    <form>
+      <span *ngFor="let tab of tabs" class="tab-switcher-list__item">
+        <input
+          type="radio"
+          class="tab-switcher-list__radio"
+          name="tab-switcher"
+          id={{tab.id}}
+          [value]="tab.id"
+          [checked]="tab.checked"
+          (change)="onSwitcherChange(tab)"
+        >
+        <label for={{tab.id}} class="tab-switcher-list__label">{{tab.title}}</label>
+      </span>
+
+    </form>
+  </div>
+</section>

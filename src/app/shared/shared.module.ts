@@ -23,7 +23,7 @@ import { CoinsDataService } from '../services/coins-data/coins-data.service';
 		HttpModule,
 		NgbModule,
     RouterModule,
-		FormsModule
+    FormsModule
   ],
   declarations: []
 })

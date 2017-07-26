@@ -1,0 +1,11 @@
+.history-charts {
+  margin-bottom: 20px;
+}
+
+.coin-details-wrapper {
+  overflow: auto;
+}
+
+.coin-details {
+  font-weight: bold;
+}

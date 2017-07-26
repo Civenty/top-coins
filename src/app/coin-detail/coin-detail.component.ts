@@ -15,6 +15,26 @@ export class CoinDetailComponent implements OnInit {
 	];
 	lineChartLabels = [];
 
+	hasData = false;
+	showLoader = false;
+
+	tabs = [
+		{
+			id: 'all',
+			title: 'all',
+			checked: false
+		},
+		{
+			id: 'one-day',
+			title: '1 day',
+			checked: true			
+		},
+		{
+			id: 'seven-day',
+			title: '7 days'
+		}		
+	];
+
   lineChartOptions:any = {
 		responsive: true,
 		legend: {
@@ -42,14 +62,14 @@ export class CoinDetailComponent implements OnInit {
 		vwapDataBTC: ''
 	};
 
-	hasData = false;
-
-  constructor(
+	constructor(
 		private route: ActivatedRoute,
 		private router: Router,		
 		private coinsDataService: CoinsDataService,
 		private location: Location
 	) {
+		this.toggleLoader(true);
+
 		this.coinsDataService
 			.getCoinData(route.snapshot.params['coin-name'])
 			.then(response => this.coinDetailsResponseHandler(response));		
@@ -57,6 +77,9 @@ export class CoinDetailComponent implements OnInit {
 
 	setPriceData(priceData: Array<any>) {
 		let d = null;
+
+		this.lineChartData[0].data = [];
+		this.lineChartLabels = [];
 
 		priceData.forEach((price, pos) => {
 			d = new Date(price[0]);
@@ -84,6 +107,8 @@ export class CoinDetailComponent implements OnInit {
 	}
 
 	coinDetailsResponseHandler(response) {
+		this.toggleLoader(false);
+		
 		if (response && response.price) {
 			this.setPriceData(response.price);
 			this.setCoinProps(response);
@@ -94,9 +119,19 @@ export class CoinDetailComponent implements OnInit {
 
   ngOnInit() {
 	}
+
+	changeTab($event) {
+		this.coinsDataService
+			.getCoinData(this.route.snapshot.params['coin-name'])
+			.then(response => this.coinDetailsResponseHandler(response));			
+	}
 	
 	goBack(): void {
 		this.location.back();
+	}
+
+	toggleLoader(state: boolean) {
+		this.showLoader = state;
 	}
 
 }

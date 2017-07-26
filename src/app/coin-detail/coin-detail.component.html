@@ -1,8 +1,10 @@
 <div class="container">
 	<div class="row justify-content-md-center">
 		<div class="col-12 col-md-9">
-			<section>
+			<section class="history-charts">
 				<h1 *ngIf="lineChartLabels.length">{{coinProps.long}}</h1>
+
+				<h1 *ngIf="showLoader">Loading...</h1>
 				
 				<div *ngIf="hasData">
 					<button type="button" (click)="goBack()">BACK</button>
@@ -10,6 +12,8 @@
 				</div>
 				
 				<div *ngIf="lineChartLabels.length">
+					<app-tab-switcher (changeTab)="changeTab($event)" [tabs]="tabs"></app-tab-switcher>
+
 					<canvas baseChart width="4" height="2"
 						[datasets]="lineChartData"
 						[labels]="lineChartLabels"
@@ -18,20 +22,20 @@
 				</div>
 			</section>
 
-			<section>
-				<table class="table" *ngIf="lineChartLabels.length">
+			<section class="coin-details-wrapper">
+				<table class="table coin-details" *ngIf="lineChartLabels.length">
 					<!-- <tr> <td>Name</td> <td>{{coinProps.long}}</td></tr> -->
 					<tr> <td>Position</td> <td>{{coinProps.position24}}</td></tr>
-					<tr> <td>Price USD</td> <td>{{coinProps.usdPrice}}</td></tr>
-					<tr> <td>vwapDataBTC</td> <td>{{coinProps.vwapDataBTC}}</td></tr>				
-					<tr> <td>Change 24h</td> <td>{{coinProps.cap24hrChange}}</td></tr>
-					<tr> <td>Percent change</td> <td>{{coinProps.perc}}</td></tr>
-					<tr> <td>Explorer URL</td> <td>{{coinProps.explorerURL}}</td></tr>
-					<tr> <td>Home URL</td> <td>{{coinProps.homeURL}}</td></tr>
+					<tr> <td>Price</td> <td>{{coinProps.usdPrice}}$</td></tr>
+					<!-- <tr> <td>vwapDataBTC</td> <td>{{coinProps.vwapDataBTC}}</td></tr>				 -->
+					<tr> <td>Change 24h</td> <td>{{coinProps.cap24hrChange}}%</td></tr>
+					<!-- <tr> <td>Percent change</td> <td>{{coinProps.perc}}</td></tr> -->
+					<tr> <td>Explorer URL</td> <td><a target="_blanc" href="{{coinProps.explorerURL}}">{{coinProps.explorerURL}}</a></td></tr>
+					<tr> <td>Home URL</td> <td><a target="_blanc" href="{{coinProps.homeURL}}">{{coinProps.homeURL}}</a></td></tr>
 					<tr> <td>Is Buy</td> <td>{{coinProps.isBuy}}</td></tr>
 					<tr> <td>Is Mineable</td> <td>{{coinProps.mineable}}</td></tr>
 					<tr> <td>Is Published</td> <td>{{coinProps.published}}</td></tr>
-					<tr> <td>Total Volume USD</td> <td>{{coinProps.usdVolume}}</td></tr>
+					<tr> <td>Total Volume</td> <td>{{coinProps.usdVolume}}$</td></tr>
 				</table>
 			</section>
 		</div>
