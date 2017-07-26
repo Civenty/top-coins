@@ -4,7 +4,7 @@
 			<section class="history-charts">
 				<h1 *ngIf="lineChartLabels.length">{{coinProps.long}}</h1>
 
-				<h1 *ngIf="showLoader">Loading...</h1>
+				<h1 *ngIf="showLoader || !lineChartLabels.length">Loading...</h1>
 				
 				<div *ngIf="hasData">
 					<button type="button" (click)="goBack()">BACK</button>

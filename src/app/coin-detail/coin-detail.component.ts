@@ -73,22 +73,25 @@ export class CoinDetailComponent implements OnInit {
 		this.coinsDataService
 			.getCoinData(route.snapshot.params['coin-name'])
 			.then(response => this.coinDetailsResponseHandler(response));		
+			// .then(response => console.log(response.display_name));		
 	}
 
-	setPriceData(priceData: Array<any>) {
+	setPriceData(priceData: Array<any> = []) {
 		let d = null;
 
 		this.lineChartData[0].data = [];
 		this.lineChartLabels = [];
 
-		priceData.forEach((price, pos) => {
-			d = new Date(price[0]);
+		if (Array.isArray(priceData)) {
+			priceData.forEach((price, pos) => {
+				d = new Date(price[0]);
 
-			if (pos % 20 == 0) {
-				this.lineChartData[0].data.push(price[1]);
-				this.lineChartLabels.push(d);
-			}
-		});
+				if (pos % 20 == 0) {
+					this.lineChartData[0].data.push(price[1]);
+					this.lineChartLabels.push(d);
+				}
+			});
+		}
 	}
 
 	setCoinProps(coinData: any) {
