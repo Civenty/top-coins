@@ -25,12 +25,12 @@ export class CoinDetailComponent implements OnInit {
 			checked: false
 		},
 		{
-			id: 'one-day',
+			id: 'oneday',
 			title: '1 day',
 			checked: true			
 		},
 		{
-			id: 'seven-day',
+			id: 'sevendays',
 			title: '7 days'
 		}		
 	];

@@ -14,68 +14,27 @@ export class CoinsDataService {
 
 	coinDataCache = {};
 	coinsListCache = {data: null};
-	getCoinDayHistoryCache = null;
 
   constructor(
 		private http: Http
 	) { }
 
+	recieveData(url: string): Promise<any> {
+		return this.http
+			.get(url)
+			.toPromise()
+			.then(response => response.json());
+	}
+
 	getCoinsList(): Promise<any> {
-		let data = Observable.empty<any>().toPromise();
-
-		if (this.coinsListCache.data) {
-			this.coinsListCache.data = Observable.of(this.coinsListCache.data).toPromise();			
-			data = this.coinsListCache.data;
-		} else {
-			data = this.http
-				.get(this.coinsListUrl)
-				.toPromise()
-				.then(response => {
-					this.coinsListCache.data = response.json();
-
-					return this.coinsListCache.data;
-				});
-		}
-		
-		return data;
+		return this.coinsListCache.data || 
+			this.recieveData(this.coinsListUrl)
+				.then(res => this.coinsListCache.data = Observable.of(res).toPromise());
 	}
 
 	getCoinData(coinSymbol: string): Promise<any> {
-		let data = Observable.empty<any>().toPromise();
-
-		if (this.coinDataCache[coinSymbol]) {
-			this.coinDataCache[coinSymbol] = Observable.of(this.coinDataCache[coinSymbol]).toPromise();
-			data = this.coinDataCache[coinSymbol];
-		} else {
-			data = this.http
-				.get(`${this.coinDataUrl}${coinSymbol}`)
-				.toPromise()
-				.then(response => {
-					this.coinDataCache[coinSymbol] = response.json();
-
-					return this.coinDataCache[coinSymbol];
-				});		
-		}
-
-		return data;
-	}
-
-	getCoinDayHistory(coinSymbol: string) {
-		let data = Observable.empty<any>().toPromise();
-
-		if (this.coinDataCache) {
-			data = Observable.of(this.coinDataCache).toPromise();
-		} else {
-			data = this.http
-				.get(`${this.coinDataHistoryUrl}${coinSymbol}`)
-				.toPromise()
-				.then(response => {
-					this.coinDataCache = response.json();
-
-					return this.coinDataCache;
-				});		
-		}
-
-		return data;
+		return this.coinDataCache[coinSymbol] ||
+			this.recieveData(`${this.coinDataUrl}${coinSymbol}`)
+				.then(res => this.coinDataCache[coinSymbol] = Observable.of(res).toPromise());
 	}
 }
