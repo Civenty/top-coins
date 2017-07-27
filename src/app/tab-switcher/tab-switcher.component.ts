@@ -7,6 +7,7 @@ import { Component, OnInit, OnChanges, Input, Output, SimpleChanges, EventEmitte
 })
 export class TabSwitcherComponent implements OnInit {
   @Input() tabs = [];
+  @Input() isDisabled = false;
   @Output() changeTab:EventEmitter<any> = new EventEmitter();
 
   public switcherModel: any = {};

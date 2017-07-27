@@ -17,6 +17,7 @@ export class CoinDetailComponent implements OnInit {
 
 	hasData = false;
 	showLoader = false;
+	switcherDisabledState = false;
 
 	tabs = [
 		{
@@ -124,13 +125,23 @@ export class CoinDetailComponent implements OnInit {
 	}
 
 	changeTab($event) {
+		this.toggleSwitcherDisabledState(true);
+
 		this.coinsDataService
 			.getChartData(this.route.snapshot.params['coin-name'], $event.id)
-			.then(response => this.setPriceData(response));			
+			.then(response => {
+				this.toggleSwitcherDisabledState(false);
+
+				return this.setPriceData(response);
+			});			
 	}
 	
 	goBack(): void {
 		this.location.back();
+	}
+
+	toggleSwitcherDisabledState(state: boolean) {
+		this.switcherDisabledState = state;
 	}
 
 	toggleLoader(state: boolean) {

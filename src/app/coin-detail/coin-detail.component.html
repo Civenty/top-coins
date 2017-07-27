@@ -12,7 +12,12 @@
 				</div>
 				
 				<div *ngIf="lineChartLabels.length">
-					 <app-tab-switcher (changeTab)="changeTab($event)" [tabs]="tabs"></app-tab-switcher> 
+					<app-tab-switcher
+							(changeTab)="changeTab($event)"
+							[isDisabled]="switcherDisabledState"
+							[tabs]="tabs"></app-tab-switcher> 
+
+					<p *ngIf="switcherDisabledState" class="charts-loader">Fetching...</p>
 
 					<canvas baseChart width="4" height="2"
 						[datasets]="lineChartData"

@@ -52,3 +52,8 @@
   background-color: #cfd2da;
   color: #252830;
 }
+
+.tab-switcher-list__radio:disabled + .tab-switcher-list__label {
+  opacity: 0.5;
+  cursor: default;
+}

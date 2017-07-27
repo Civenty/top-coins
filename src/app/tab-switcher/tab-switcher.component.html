@@ -8,6 +8,7 @@
           name="tab-switcher"
           id={{tab.id}}
           [value]="tab.id"
+          [disabled]="isDisabled"
           [checked]="tab.checked"
           (change)="onSwitcherChange(tab)"
         >
