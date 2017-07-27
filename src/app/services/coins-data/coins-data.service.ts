@@ -10,9 +10,10 @@ import 'rxjs/add/observable/of';
 export class CoinsDataService {
 	private coinsListUrl: string = 'https://api.coinmarketcap.com/v1/ticker/?limit=200';
 	private coinDataUrl: string = 'http://www.coincap.io/page/';
-	private coinDataHistoryUrl: string = 'http://www.coincap.io/history/1day/';	
+	private coinDataHistoryUrl: string = 'http://www.coincap.io/history/';	
 
 	coinDataCache = {};
+	coinChartCache = {};
 	coinsListCache = {data: null};
 
   constructor(
@@ -35,6 +36,22 @@ export class CoinsDataService {
 	getCoinData(coinSymbol: string): Promise<any> {
 		return this.coinDataCache[coinSymbol] ||
 			this.recieveData(`${this.coinDataUrl}${coinSymbol}`)
-				.then(res => this.coinDataCache[coinSymbol] = Observable.of(res).toPromise());
+				.then(res => {
+					this.coinDataCache[coinSymbol] = Observable.of(res).toPromise();
+					this.coinChartCache[coinSymbol] = this.coinChartCache[coinSymbol] || {};
+					this.coinChartCache[coinSymbol]['all'] = Observable.of(res.price).toPromise();
+
+					return this.coinDataCache[coinSymbol];
+				});
+	}
+
+	getChartData(coinSymbol: string, period): Promise<any> {
+		return this.coinChartCache[coinSymbol] && this.coinChartCache[coinSymbol][period] ||
+			this.recieveData(`${this.coinDataHistoryUrl}${period}/${coinSymbol}`)
+				.then(res => {
+					this.coinChartCache[coinSymbol] = this.coinChartCache[coinSymbol] || {};
+
+					return this.coinChartCache[coinSymbol][period] = Observable.of(res.price).toPromise();
+				});
 	}
 }

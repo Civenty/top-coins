@@ -22,15 +22,15 @@ export class CoinDetailComponent implements OnInit {
 		{
 			id: 'all',
 			title: 'all',
-			checked: false
+			checked: true
 		},
 		{
-			id: 'oneday',
+			id: '1day',
 			title: '1 day',
-			checked: true			
+			checked: false			
 		},
 		{
-			id: 'sevendays',
+			id: '7day',
 			title: '7 days'
 		}		
 	];
@@ -125,8 +125,8 @@ export class CoinDetailComponent implements OnInit {
 
 	changeTab($event) {
 		this.coinsDataService
-			.getCoinData(this.route.snapshot.params['coin-name'])
-			.then(response => this.coinDetailsResponseHandler(response));			
+			.getChartData(this.route.snapshot.params['coin-name'], $event.id)
+			.then(response => this.setPriceData(response));			
 	}
 	
 	goBack(): void {
